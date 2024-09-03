@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui";
+import { Button, Link } from "@/components/ui";
 import { cn } from "@/libs";
 
 export type NavButtonProps = {
