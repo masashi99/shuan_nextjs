@@ -1,21 +1,22 @@
-"use client";
-import { useEffect, useState } from "react";
+import { Test } from "@/features/test/Test";
+import { Suspense } from "react";
 
 export default function Home() {
-	const [data, setData] = useState("");
 
-	useEffect(() => {
-		const fetcher = async () => {
-			const res = await fetch("/api/hello");
-			const data = await res.json();
-			console.log(data);
-			setData(data.message);
-		};
-		fetcher();
-	}, []);
+	const res = getData();
+
 	return (
-		<div>
-			<p>{data}</p>
-		</div>
+		<Suspense fallback={<div>Loading...</div>}>
+			<Test data={res} />
+		</Suspense>
 	);
+}
+
+async function getData() {
+	const res = await fetch("http://localhost:3000/api/hello");
+	if (!res.ok) {
+		throw new Error("Failed to fetch data");
+	}
+	const data = await res.json();
+	return data.message;
 }
