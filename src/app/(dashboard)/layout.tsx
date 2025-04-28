@@ -1,7 +1,7 @@
 type Props = {
-  children: React.ReactNode;
-}
+	children: React.ReactNode;
+};
 
-export default function Layout({children}:Props) {
-  return <main>{children}</main>
+export default function Layout({ children }: Props) {
+	return <main>{children}</main>;
 }
