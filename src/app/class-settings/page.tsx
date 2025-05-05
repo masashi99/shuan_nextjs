@@ -1,5 +1,5 @@
-import { ClassSettings } from "@/src/components/class-settings";
-import { PlannerProvider } from "@/src/contexts/planner-context";
+import { ClassSettings } from "@/components/class-settings";
+import { PlannerProvider } from "@/contexts/planner-context";
 
 export default function ClassSettingsPage() {
 	return (

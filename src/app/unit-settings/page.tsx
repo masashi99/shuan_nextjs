@@ -1,5 +1,5 @@
-import { UnitSettings } from "@/src/components/unit-settings";
-import { PlannerProvider } from "@/src/contexts/planner-context";
+import { UnitSettings } from "@/components/unit-settings";
+import { PlannerProvider } from "@/contexts/planner-context";
 
 export default function UnitSettingsPage() {
 	return (

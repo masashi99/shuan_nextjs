@@ -1,5 +1,5 @@
-import { WeeklyCalendar } from "@/src/components/weekly-calendar";
-import { PlannerProvider } from "@/src/contexts/planner-context";
+import { WeeklyCalendar } from "@/components/weekly-calendar";
+import { PlannerProvider } from "@/contexts/planner-context";
 
 export default function Home() {
 	return (

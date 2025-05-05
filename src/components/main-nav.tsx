@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { BookOpen, Calendar, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

@@ -1,5 +1,5 @@
-import { ClassesManager } from "@/src/components/classes-manager";
-import { PlannerProvider } from "@/src/contexts/planner-context";
+import { ClassesManager } from "@/components/classes-manager";
+import { PlannerProvider } from "@/contexts/planner-context";
 
 export default function ClassesPage() {
 	return (
