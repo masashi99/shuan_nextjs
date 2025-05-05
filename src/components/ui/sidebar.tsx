@@ -16,7 +16,6 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
@@ -45,6 +44,26 @@ function useSidebar() {
 	}
 
 	return context;
+}
+
+// モバイル判定用のカスタムフック
+function useIsMobile() {
+	const [isMobile, setIsMobile] = React.useState(false);
+
+	React.useEffect(() => {
+		const checkIsMobile = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		checkIsMobile();
+		window.addEventListener("resize", checkIsMobile);
+
+		return () => {
+			window.removeEventListener("resize", checkIsMobile);
+		};
+	}, []);
+
+	return isMobile;
 }
 
 const SidebarProvider = React.forwardRef<

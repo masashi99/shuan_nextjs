@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
 	Dialog,
 	DialogContent,
@@ -79,17 +78,17 @@ export function ClassSettings() {
 	const getDayInJapanese = (day: string) => {
 		switch (day) {
 			case "Monday":
-				return "月";
+				return "月曜日";
 			case "Tuesday":
-				return "火";
+				return "火曜日";
 			case "Wednesday":
-				return "水";
+				return "水曜日";
 			case "Thursday":
-				return "木";
+				return "木曜日";
 			case "Friday":
-				return "金";
+				return "金曜日";
 			case "Saturday":
-				return "土";
+				return "土曜日";
 			default:
 				return day;
 		}
@@ -107,87 +106,69 @@ export function ClassSettings() {
 
 	return (
 		<>
-			<Card>
-				<CardContent className="p-4">
-					<div className="w-full overflow-x-auto">
-						<div className="min-w-[700px]">
-							{/* カレンダーヘッダー */}
-							<div className="grid grid-cols-7 border-b">
-								<div className="p-2 text-center font-medium text-muted-foreground">
-									時限
-								</div>
+			<div className="space-y-6">
+				<h1 className="text-2xl font-bold">授業設定</h1>
+
+				<div className="border rounded-lg overflow-hidden">
+					<table className="w-full border-collapse">
+						<thead>
+							<tr className="border-b">
+								<th className="p-3 text-center font-medium">時限</th>
 								{DAYS.map((day) => (
-									<div key={day} className="p-2 text-center font-medium">
-										{getDayInJapanese(day)}曜日
-									</div>
+									<th key={day} className="p-3 text-center font-medium">
+										{getDayInJapanese(day)}
+									</th>
 								))}
-							</div>
+							</tr>
+						</thead>
+						<tbody>
+							{displayPeriods.map((period) => (
+								<tr key={period.id} className="border-b">
+									<td className="border-r p-3 text-center">
+										<div className="font-medium">{period.name}</div>
+										{period.startTime && (
+											<div className="text-xs text-muted-foreground">
+												{period.startTime}〜{period.endTime}
+											</div>
+										)}
+									</td>
 
-							{/* カレンダー本体 */}
-							<div className="grid grid-cols-7">
-								{/* 時限ラベル */}
-								<div className="border-r">
-									{displayPeriods.map((period) => (
-										<div
-											key={period.id}
-											className={`border-b ${
-												period.isHalfHeight ? "h-12" : "h-24"
-											} text-xs text-muted-foreground flex flex-col items-center justify-center`}
-										>
-											<div className="font-medium">{period.name}</div>
-										</div>
-									))}
-								</div>
+									{DAYS.map((day) => {
+										// 授業を設定できるコマの場合
+										const template = getClassTemplate(day, period.id);
+										const subject = template
+											? getSubjectById(template.subjectId)
+											: null;
+										const unit = template?.unitId
+											? getUnitById(template.unitId)
+											: null;
 
-								{/* 曜日カラム */}
-								{DAYS.map((day) => (
-									<div key={day} className="relative border-r">
-										{/* 時限グリッド線 */}
-										{displayPeriods.map((period) => {
-											// 授業を設定できるコマの場合
-											const template = getClassTemplate(day, period.id);
-											const subject = template
-												? getSubjectById(template.subjectId)
-												: null;
-											const unit = template?.unitId
-												? getUnitById(template.unitId)
-												: null;
-
-											return (
-												<div
-													key={period.id}
-													className={`border-b ${
-														period.isHalfHeight ? "h-12" : "h-24"
-													} relative cursor-pointer hover:bg-gray-50`}
-													onClick={() => handleCellClick(day, period.id)}
-													onKeyDown={(e) => {
-														if (e.key === "Enter" || e.key === " ") {
-															handleCellClick(day, period.id);
-														}
-													}}
-													// biome-ignore lint/a11y/noNoninteractiveTabindex: <explanation>
-													tabIndex={0} // Makes the div focusable for keyboard interaction
-												>
-													{template && subject && (
-														<div
-															className={`p-2 h-full rounded-sm m-1 ${getColorClass(subject.color)}`}
-														>
-															<div className="font-medium">{subject.name}</div>
-															{unit && (
-																<div className="text-xs mt-1">{unit.name}</div>
-															)}
-														</div>
-													)}
-												</div>
-											);
-										})}
-									</div>
-								))}
-							</div>
-						</div>
-					</div>
-				</CardContent>
-			</Card>
+										return (
+											// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+											<td
+												key={day}
+												className="border-r p-2 h-24 cursor-pointer hover:bg-gray-50"
+												onClick={() => handleCellClick(day, period.id)}
+											>
+												{template && subject && (
+													<div
+														className={`h-full p-2 rounded ${getColorClass(subject.color)}`}
+													>
+														<div className="font-medium">{subject.name}</div>
+														{unit && (
+															<div className="text-xs mt-1">{unit.name}</div>
+														)}
+													</div>
+												)}
+											</td>
+										);
+									})}
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</div>
 
 			{/* 授業設定ダイアログ */}
 			<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -195,7 +176,7 @@ export function ClassSettings() {
 					<DialogHeader>
 						<DialogTitle>
 							{selectedCell &&
-								`${getDayInJapanese(selectedCell.day)}曜日 ${
+								`${getDayInJapanese(selectedCell.day)} ${
 									PERIODS.find((p) => p.id === selectedCell.periodId)?.name
 								}の授業設定`}
 						</DialogTitle>

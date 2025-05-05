@@ -70,7 +70,7 @@ export function UnitSettings() {
 
 	// 教科の編集保存
 	const saveEditingSubject = () => {
-		if (editingSubject?.name?.trim()) {
+		if (editingSubject?.name.trim()) {
 			updateSubject(editingSubject.id, editingSubject.name);
 			setEditingSubject(null);
 		}
@@ -121,6 +121,8 @@ export function UnitSettings() {
 
 	return (
 		<div className="space-y-6">
+			<h1 className="text-2xl font-bold">単元設定</h1>
+
 			{/* 教科追加ボタン */}
 			<div className="flex justify-between items-center">
 				<h2 className="text-xl font-semibold">教科と単元の管理</h2>
@@ -132,7 +134,7 @@ export function UnitSettings() {
 
 			{/* 新規教科入力フォーム */}
 			{showNewSubjectInput && (
-				<Card>
+				<Card className="border">
 					<CardHeader>
 						<CardTitle>新しい教科を追加</CardTitle>
 						<CardDescription>教科名を入力してください</CardDescription>
@@ -175,7 +177,7 @@ export function UnitSettings() {
 						);
 
 						return (
-							<Card key={subject.id} className="overflow-hidden">
+							<Card key={subject.id} className="overflow-hidden border">
 								<CardHeader className={getColorClass(subject.color)}>
 									<div className="flex justify-between items-center">
 										{editingSubject && editingSubject.id === subject.id ? (

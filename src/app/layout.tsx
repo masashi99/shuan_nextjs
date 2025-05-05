@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import type React from "react";
 import "./globals.css";
-import { MainNav } from "@/components/main-nav";
+import { AppSidebar } from "@/components/app-sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,18 +20,9 @@ export default function RootLayout({
 	return (
 		<html lang="ja">
 			<body className={inter.className}>
-				<div className="flex flex-col min-h-screen">
-					<header className="border-b">
-						<div className="container mx-auto py-4 px-4">
-							<div className="flex justify-between items-center">
-								<h1 className="text-xl font-bold">授業スケジュール管理</h1>
-								<MainNav />
-							</div>
-						</div>
-					</header>
-					<main className="flex-1 py-6">
-						<div className="container mx-auto px-4">{children}</div>
-					</main>
+				<div className="flex min-h-screen">
+					<AppSidebar />
+					<main className="flex-1 p-6">{children}</main>
 				</div>
 			</body>
 		</html>
