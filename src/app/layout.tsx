@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import type React from "react";
 import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
 	title: "授業スケジュール管理",
 	description: "授業、課題、学習時間を管理するアプリケーション",
-	generator: "v0.dev",
 };
 
 export default function RootLayout({
@@ -19,10 +16,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="ja">
-			<body className={inter.className}>
+			<body>
+				<Header />
 				<div className="flex min-h-screen">
 					<AppSidebar />
-					<main className="flex-1 p-6">{children}</main>
+					<main className="flex-1 pr-8">{children}</main>
 				</div>
 			</body>
 		</html>

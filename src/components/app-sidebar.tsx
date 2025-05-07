@@ -26,7 +26,7 @@ export function AppSidebar() {
 	];
 
 	return (
-		<div className="w-64 border-r bg-white">
+		<div className="w-64 bg-white">
 			<nav className="flex flex-col p-4 space-y-4">
 				{navItems.map((item) => {
 					const Icon = item.icon;
